@@ -1,0 +1,212 @@
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <img src="src/img/GSDOriginal.png" alt="GrayStackDev Logo" class="logo-img">
+                </div>
+                <div class="brand-content">
+                    <h1>GrayStackDev</h1>
+                    <span>Soluciones Tecnológicas</span>
+                </div>
+            </div>
+            <div class="nav-menu">
+                <a href="#mantenimiento">Mantenimiento</a>
+                <a href="#nube">Nube</a>
+                <a href="#moodle">Moodle</a>
+                <a href="#contacto" class="cta-button">Contacto</a>
+            </div>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Transformamos tu negocio con tecnología</h1>
+                <p class="hero-subtitle">Soluciones integrales de mantenimiento, desarrollo web y una gran plataforma educativa</p>
+                <div class="hero-cta">
+                    <button class="btn-primary">Conoce nuestros servicios</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-elements">
+                    <div class="element element-1"></div>
+                    <div class="element element-2"></div>
+                    <div class="element element-3"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Grid -->
+        <section class="services-grid">
+            <!-- Mantenimiento Section -->
+            <div class="service-panel" id="mantenimiento">
+                <div class="panel-background">
+                    <div class="panel-overlay"></div>
+                </div>
+                <div class="panel-content">
+                    <div class="panel-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h2 class="panel-title">MANTENIMIENTO</h2>
+                    <p class="panel-description">Soporte técnico especializado para mantener tu equipo funcionando al máximo rendimiento</p>
+                    <ul class="service-list">
+                        <li><i class="fas fa-check"></i> Reparación de computadoras y laptops</li>
+                        <li><i class="fas fa-check"></i> Configuración de impresoras</li>
+                        <li><i class="fas fa-check"></i> Activación Office/Windows</li>
+                        <li><i class="fas fa-check"></i> Formateo y optimización</li>
+                        <li><i class="fas fa-check"></i> Soporte hardware y software</li>
+                    </ul>
+                    <button class="panel-cta">Solicitar servicio</button>
+                </div>
+            </div>
+
+            <!-- Nube Section -->
+            <div class="service-panel nube-panel" id="nube">
+                <div class="panel-background">
+                    <div class="panel-overlay"></div>
+                </div>
+                <div class="panel-content">
+                    <div class="panel-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h2 class="panel-title">NUBE</h2>
+                    <p class="panel-description">Soluciones completas en la nube para tu negocio y documentos personales</p>
+                    
+                    <!-- Web Hosting Subsection -->
+                    <div class="service-subsection">
+                        <div class="subsection-header">
+                            <i class="fas fa-globe"></i>
+                            <h3>Web Hosting & Desarrollo</h3>
+                        </div>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Diseño y desarrollo web completo</li>
+                            <li><i class="fas fa-check"></i> Hosting optimizado para tu sitio</li>
+                            <li><i class="fas fa-check"></i> Dominios y certificados SSL</li>
+                            <li><i class="fas fa-check"></i> Mantenimiento web continuo</li>
+                        </ul>
+                    </div>
+
+                    <!-- Cloud Storage Subsection -->
+                    <div class="service-subsection">
+                        <div class="subsection-header">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h3>Almacenamiento en la Nube</h3>
+                        </div>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Respaldo seguro de documentos</li>
+                            <li><i class="fas fa-check"></i> Acceso desde cualquier dispositivo</li>
+                            <li><i class="fas fa-check"></i> Sincronización automática</li>
+                            <li><i class="fas fa-check"></i> Planes personalizados de almacenamiento</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="panel-cta">Solicitar servicio</button>
+                </div>
+            </div>
+
+            <!-- Moodle Section -->
+            <div class="service-panel" id="moodle">
+                <div class="panel-background">
+                    <div class="panel-overlay"></div>
+                </div>
+                <div class="panel-content">
+                    <div class="panel-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h2 class="panel-title">MOODLE</h2>
+                    <p class="panel-description">Plataformas educativas avanzadas para revolucionar el aprendizaje digital</p>
+                    <ul class="service-list">
+                        <li><i class="fas fa-check"></i> Implementación Moodle en la nube</li>
+                        <li><i class="fas fa-check"></i> Instalación en servidores locales</li>
+                        <li><i class="fas fa-check"></i> Asesoría en equipos</li>
+                        <li><i class="fas fa-check"></i> Capacitación y soporte</li>
+                        <li><i class="fas fa-check"></i> Personalización avanzada</li>
+                    </ul>
+                    <button class="panel-cta">Implementar Moodle</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contacto">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>¿Listo para transformar tu negocio?</h2>
+                    <p>Contáctanos y descubre cómo nuestras soluciones tecnológicas pueden impulsar tu crecimiento</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+504 3302-3042</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>graystackdev@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Siguatepeque, Honduras</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Nombre completo" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Correo electrónico" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="service-select" required>
+                                <option value="">Selecciona un servicio</option>
+                                <option value="mantenimiento">Mantenimiento</option>
+                                <option value="hosting">Web Hosting & Desarrollo</option>
+                                <option value="almacenamiento">Almacenamiento en la Nube</option>
+                                <option value="moodle">Plataforma Moodle</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Describe tu proyecto o necesidad" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Enviar mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>GrayStackDev</h3>
+                <p>Soluciones tecnológicas que impulsan tu éxito</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Servicios</h4>
+                    <a href="#mantenimiento">Mantenimiento</a>
+                    <a href="#nube">Desarrollo Web</a>
+                    <a href="#moodle">Plataformas Moodle</a>
+                </div>
+                <div class="link-group">
+                    <h4>Contacto</h4>
+                    <a href="tel:+50433023042">+504 3302-3042</a>
+                    <a href="mailto:graystackdev@gmail.com">graystackdev@gmail.com</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 GrayStackDev. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
+</body>
