@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout>
+<Layout title="GrayStackDev - Soluciones Tecnológicas">
 	<!-- Header -->
 	<header class="fixed top-0 w-full bg-black/95 backdrop-blur-sm z-50 border-b border-white/10">
 		<nav class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
@@ -41,28 +41,64 @@ import Layout from '../layouts/Layout.astro';
 	</header>
 
 	<main class="main-container">
-		<!-- Hero Section -->
-		<section class="min-h-screen flex items-center justify-center px-8 relative">
-			<!-- Background Image -->
-			<div class="absolute inset-0 -z-10">
-				<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80')] bg-cover bg-center bg-no-repeat"></div>
-				<div class="absolute inset-0 bg-black/60"></div>
+		<!-- Hero Section - Minimalist Futuristic -->
+		<section class="min-h-screen flex items-center justify-center px-8 relative overflow-hidden">
+			<!-- Minimalist Geometric Background -->
+			<div class="absolute inset-0 -z-10 bg-gradient-to-br from-gray-950 via-gray-900 to-black">
+				<!-- Animated gradient orbs -->
+				<div class="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+				<div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gray-500/10 rounded-full blur-3xl animate-pulse-slower"></div>
+				
+				<!-- Geometric grid lines -->
+				<div class="absolute inset-0 opacity-20">
+					<div class="absolute top-0 left-0 w-full h-full" style="background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 100px 100px;"></div>
+				</div>
+				
+				<!-- Floating geometric shapes -->
+				<div class="hidden md:block absolute top-20 right-20 w-32 h-32 border border-orange-500/20 rotate-45 animate-float"></div>
+				<div class="hidden md:block absolute bottom-40 left-40 w-24 h-24 border border-gray-400/20 animate-float-delayed"></div>
+				<div class="hidden lg:block absolute top-1/2 right-1/3 w-16 h-16 border border-orange-500/30 rotate-12 animate-float-delayed-2"></div>
 			</div>
 			
-			<!-- Transparent Content Container -->
-			<div class="max-w-4xl mx-auto text-center">
-				<div class="bg-black/20 backdrop-blur-sm border border-white/10 rounded-2xl p-12 md:p-16">
-					<h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6 text-white">
-						Transformamos tu negocio con tecnología
-					</h1>
-					<p class="text-xl md:text-2xl text-gray-200 mb-10 leading-relaxed max-w-3xl mx-auto">
-						Soluciones integrales de mantenimiento, desarrollo web y una gran plataforma educativa
-					</p>
-					<div class="hero-cta">
-						<button class="bg-gradient-to-r from-orange-800 to-orange-500 text-white px-10 py-4 text-lg font-semibold rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-orange-500/40 uppercase tracking-wide">
+			<!-- Minimalist Content Container -->
+			<div class="max-w-5xl mx-auto text-center relative px-4">
+				<!-- Subtle accent line -->
+				<div class="w-16 sm:w-20 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent mx-auto mb-6 sm:mb-8 animate-pulse"></div>
+				
+				<h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-tight mb-6 sm:mb-8 text-white tracking-tight">
+					Transformamos
+					<span class="block font-bold bg-gradient-to-r from-orange-500 via-orange-400 to-gray-400 bg-clip-text text-transparent">
+						tu negocio
+					</span>
+					<span class="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-2 text-gray-400">
+						con tecnología
+					</span>
+				</h1>
+				
+				<p class="text-base sm:text-lg md:text-xl text-gray-400 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto font-light px-4">
+					Soluciones integrales de mantenimiento, desarrollo web y plataformas educativas
+				</p>
+				
+				<div class="hero-cta flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto px-4">
+					<button class="group relative px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-medium text-white overflow-hidden rounded-lg transition-all duration-300 hover:scale-105 w-full sm:w-auto">
+						<span class="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-500 transition-transform duration-300 group-hover:scale-110"></span>
+						<span class="relative flex items-center justify-center gap-2">
 							Conoce nuestros servicios
-						</button>
-					</div>
+							<svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+							</svg>
+						</span>
+					</button>
+					<button class="px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-medium text-gray-300 border border-gray-700 rounded-lg transition-all duration-300 hover:border-orange-500/50 hover:text-white hover:bg-orange-500/5 w-full sm:w-auto">
+						Ver portafolio
+					</button>
+				</div>
+				
+				<!-- Subtle bottom accent -->
+				<div class="mt-16 flex justify-center gap-2">
+					<div class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></div>
+					<div class="w-2 h-2 rounded-full bg-gray-600 animate-pulse" style="animation-delay: 0.2s;"></div>
+					<div class="w-2 h-2 rounded-full bg-gray-700 animate-pulse" style="animation-delay: 0.4s;"></div>
 				</div>
 			</div>
 		</section>
@@ -307,7 +343,75 @@ import Layout from '../layouts/Layout.astro';
 			<p>&copy; 2025 GrayStackDev. Todos los derechos reservados.</p>
 		</div>
 	</footer>
+
+	<!-- Scroll to Top Button -->
+	<button id="scrollToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-orange-600 to-orange-500 text-white rounded-full shadow-lg opacity-0 transform translate-y-4 transition-all duration-300 hover:scale-110 hover:shadow-xl z-40" style="display: none;">
+		<svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+		</svg>
+	</button>
 </Layout>
+
+<script>
+	// Header transparency on scroll
+	const header = document.querySelector('header');
+	const scrollToTopBtn = document.getElementById('scrollToTop');
+	let lastScrollY = window.scrollY;
+
+	function handleScroll() {
+		const currentScrollY = window.scrollY;
+
+		// Header transparency
+		if (header) {
+			if (currentScrollY > 50) {
+				header.classList.add('scrolled');
+			} else {
+				header.classList.remove('scrolled');
+			}
+		}
+
+		// Show/hide scroll to top button
+		if (scrollToTopBtn) {
+			if (currentScrollY > 300) {
+				scrollToTopBtn.style.display = 'block';
+				setTimeout(() => {
+					scrollToTopBtn.classList.remove('opacity-0', 'translate-y-4');
+					scrollToTopBtn.classList.add('opacity-100', 'translate-y-0');
+				}, 10);
+			} else {
+				scrollToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+				scrollToTopBtn.classList.add('opacity-0', 'translate-y-4');
+				setTimeout(() => {
+					scrollToTopBtn.style.display = 'none';
+				}, 300);
+			}
+		}
+
+		lastScrollY = currentScrollY;
+	}
+
+	// Scroll to top functionality
+	if (scrollToTopBtn) {
+		scrollToTopBtn.addEventListener('click', () => {
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth'
+			});
+		});
+	}
+
+	// Throttled scroll event listener
+	let ticking = false;
+	window.addEventListener('scroll', () => {
+		if (!ticking) {
+			requestAnimationFrame(() => {
+				handleScroll();
+				ticking = false;
+			});
+			ticking = true;
+		}
+	});
+</script>
 
 <style>
 	@keyframes float {
@@ -334,12 +438,30 @@ import Layout from '../layouts/Layout.astro';
 		background: radial-gradient(circle at center, var(--tw-gradient-stops));
 	}
 
-	/* Enhanced hero background with mesh gradient effect */
-	.hero-bg-mesh {
-		background: 
-			radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-			radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
-			radial-gradient(circle at 40% 40%, rgba(120, 119, 255, 0.2) 0%, transparent 50%),
-			linear-gradient(135deg, rgba(88, 28, 135, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+	/* Header scroll effects */
+	:global(header.scrolled) {
+		background: rgba(0, 0, 0, 0.7) !important;
+		backdrop-filter: blur(20px) !important;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+		transition: all 0.3s ease;
+	}
+
+	/* Scroll to top button animations */
+	@keyframes pulse-slow {
+		0%, 100% { opacity: 0.4; }
+		50% { opacity: 0.8; }
+	}
+
+	.animate-pulse-slow {
+		animation: pulse-slow 3s ease-in-out infinite;
+	}
+
+	@keyframes pulse-slower {
+		0%, 100% { opacity: 0.3; }
+		50% { opacity: 0.6; }
+	}
+
+	.animate-pulse-slower {
+		animation: pulse-slower 4s ease-in-out infinite;
 	}
 </style>
