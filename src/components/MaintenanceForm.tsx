@@ -10,25 +10,25 @@ interface FormData {
   ubicacion: string;
   
   // Información del equipo
-  tipoDispositivo: string;
-  otroDispositivo: string;
+  tipodispositivo: string;
+  otrodispositivo: string;
   marca: string;
   modelo: string;
-  sistemaOperativo: string;
-  otroSO: string;
+  sistemaoperativo: string;
+  otroso: string;
   
   // Descripción del problema
-  problemaPrincipal: string;
-  otroProblem: string;
-  descripcionDetallada: string;
-  cuandoComenzo: string;
-  intentoSolucion: string;
+  problemaprincipal: string;
+  otroproblema: string;
+  descripciondetallada: string;
+  cuandocomenzo: string;
+  intentosolucion: string;
   
   // Preferencias de servicio
   urgencia: string;
   modalidad: string;
-  horarioContacto: string;
-  comentariosAdicionales: string;
+  horariocontacto: string;
+  comentariosadicionales: string;
 }
 
 interface FormErrors {
@@ -41,21 +41,21 @@ export default function MaintenanceForm() {
     email: '',
     telefono: '',
     ubicacion: '',
-    tipoDispositivo: '',
-    otroDispositivo: '',
+    tipodispositivo: '',
+    otrodispositivo: '',
     marca: '',
     modelo: '',
-    sistemaOperativo: '',
-    otroSO: '',
-    problemaPrincipal: '',
-    otroProblem: '',
-    descripcionDetallada: '',
-    cuandoComenzo: '',
-    intentoSolucion: '',
+    sistemaoperativo: '',
+    otroso: '',
+    problemaprincipal: '',
+    otroproblema: '',
+    descripciondetallada: '',
+    cuandocomenzo: '',
+    intentosolucion: '',
     urgencia: '',
     modalidad: '',
-    horarioContacto: '',
-    comentariosAdicionales: ''
+    horariocontacto: '',
+    comentariosadicionales: ''
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -77,7 +77,6 @@ export default function MaintenanceForm() {
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
-    // Validar datos del cliente
     if (!formData.nombre.trim()) {
       newErrors.nombre = 'El nombre es requerido';
     } else if (formData.nombre.trim().length < 3) {
@@ -96,35 +95,32 @@ export default function MaintenanceForm() {
       newErrors.telefono = 'Ingresa un número de teléfono válido';
     }
 
-    // Validar información del equipo
-    if (!formData.tipoDispositivo) {
-      newErrors.tipoDispositivo = 'Debes seleccionar un tipo de dispositivo';
+    if (!formData.tipodispositivo) {
+      newErrors.tipodispositivo = 'Debes seleccionar un tipo de dispositivo';
     }
 
-    if (formData.tipoDispositivo === 'otro' && !formData.otroDispositivo.trim()) {
-      newErrors.otroDispositivo = 'Especifica el tipo de dispositivo';
+    if (formData.tipodispositivo === 'otro' && !formData.otrodispositivo.trim()) {
+      newErrors.otrodispositivo = 'Especifica el tipo de dispositivo';
     }
 
-    // Validar descripción del problema
-    if (!formData.problemaPrincipal) {
-      newErrors.problemaPrincipal = 'Debes seleccionar el problema principal';
+    if (!formData.problemaprincipal) {
+      newErrors.problemaprincipal = 'Debes seleccionar el problema principal';
     }
 
-    if (formData.problemaPrincipal === 'otro' && !formData.otroProblem.trim()) {
-      newErrors.otroProblem = 'Especifica el problema';
+    if (formData.problemaprincipal === 'otro' && !formData.otroproblema.trim()) {
+      newErrors.otroproblema = 'Especifica el problema';
     }
 
-    if (!formData.descripcionDetallada.trim()) {
-      newErrors.descripcionDetallada = 'La descripción detallada es requerida';
-    } else if (formData.descripcionDetallada.trim().length < 20) {
-      newErrors.descripcionDetallada = 'La descripción debe tener al menos 20 caracteres';
+    if (!formData.descripciondetallada.trim()) {
+      newErrors.descripciondetallada = 'La descripción detallada es requerida';
+    } else if (formData.descripciondetallada.trim().length < 20) {
+      newErrors.descripciondetallada = 'La descripción debe tener al menos 20 caracteres';
     }
 
-    if (!formData.cuandoComenzo) {
-      newErrors.cuandoComenzo = 'Debes indicar cuándo comenzó el problema';
+    if (!formData.cuandocomenzo) {
+      newErrors.cuandocomenzo = 'Debes indicar cuándo comenzó el problema';
     }
 
-    // Validar preferencias de servicio
     if (!formData.urgencia) {
       newErrors.urgencia = 'Debes seleccionar la urgencia del servicio';
     }
@@ -194,45 +190,43 @@ export default function MaintenanceForm() {
     setSubmitStatus(null);
 
     try {
-      // Aquí guardarías las imágenes en Supabase Storage si es necesario
-      // Por ahora, solo guardamos los datos del formulario
-      
       const { data, error } = await supabase
         .from('mantenimiento')
         .insert([
           {
             ...formData,
-            fecha: new Date().toISOString(),
-            tiene_imagenes: imagenes.length > 0,
-            tiene_error_imagen: errorImagen !== null
+            tieneimagenes: imagenes.length > 0,
+            tieneerrorimagenes: errorImagen !== null
           }
         ]);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error de Supabase:', error);
+        throw error;
+      }
 
       setSubmitStatus('success');
       
-      // Limpiar formulario
       setFormData({
         nombre: '',
         email: '',
         telefono: '',
         ubicacion: '',
-        tipoDispositivo: '',
-        otroDispositivo: '',
+        tipodispositivo: '',
+        otrodispositivo: '',
         marca: '',
         modelo: '',
-        sistemaOperativo: '',
-        otroSO: '',
-        problemaPrincipal: '',
-        otroProblem: '',
-        descripcionDetallada: '',
-        cuandoComenzo: '',
-        intentoSolucion: '',
+        sistemaoperativo: '',
+        otroso: '',
+        problemaprincipal: '',
+        otroproblema: '',
+        descripciondetallada: '',
+        cuandocomenzo: '',
+        intentosolucion: '',
         urgencia: '',
         modalidad: '',
-        horarioContacto: '',
-        comentariosAdicionales: ''
+        horariocontacto: '',
+        comentariosadicionales: ''
       });
       setImagenes([]);
       setErrorImagen(null);
@@ -251,7 +245,6 @@ export default function MaintenanceForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      {/* Mensajes de estado */}
       {submitStatus === 'success' && (
         <div className="p-4 bg-green-500/20 border border-green-500 rounded-lg text-green-400 text-center">
           ¡Solicitud enviada exitosamente! Te contactaremos pronto.
@@ -358,11 +351,11 @@ export default function MaintenanceForm() {
               Tipo de dispositivo <span className="text-red-500">*</span>
             </label>
             <select
-              name="tipoDispositivo"
-              value={formData.tipoDispositivo}
+              name="tipodispositivo"
+              value={formData.tipodispositivo}
               onChange={handleChange}
               className={`w-full p-4 bg-white/10 border ${
-                errors.tipoDispositivo ? 'border-red-500' : 'border-white/20'
+                errors.tipodispositivo ? 'border-red-500' : 'border-white/20'
               } rounded-lg text-white focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300`}
             >
               <option value="" className="bg-gray-800">Selecciona un tipo</option>
@@ -372,28 +365,28 @@ export default function MaintenanceForm() {
               <option value="servidor" className="bg-gray-800">Servidor</option>
               <option value="otro" className="bg-gray-800">Otro (especificar)</option>
             </select>
-            {errors.tipoDispositivo && (
-              <p className="mt-2 text-sm text-red-400">{errors.tipoDispositivo}</p>
+            {errors.tipodispositivo && (
+              <p className="mt-2 text-sm text-red-400">{errors.tipodispositivo}</p>
             )}
           </div>
 
-          {formData.tipoDispositivo === 'otro' && (
+          {formData.tipodispositivo === 'otro' && (
             <div>
               <label className="block text-sm font-medium mb-2">
                 Especificar dispositivo <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
-                name="otroDispositivo"
-                value={formData.otroDispositivo}
+                name="otrodispositivo"
+                value={formData.otrodispositivo}
                 onChange={handleChange}
                 className={`w-full p-4 bg-white/10 border ${
-                  errors.otroDispositivo ? 'border-red-500' : 'border-white/20'
+                  errors.otrodispositivo ? 'border-red-500' : 'border-white/20'
                 } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300`}
                 placeholder="Especifica el tipo de dispositivo"
               />
-              {errors.otroDispositivo && (
-                <p className="mt-2 text-sm text-red-400">{errors.otroDispositivo}</p>
+              {errors.otrodispositivo && (
+                <p className="mt-2 text-sm text-red-400">{errors.otrodispositivo}</p>
               )}
             </div>
           )}
@@ -431,8 +424,8 @@ export default function MaintenanceForm() {
               Sistema operativo
             </label>
             <select
-              name="sistemaOperativo"
-              value={formData.sistemaOperativo}
+              name="sistemaoperativo"
+              value={formData.sistemaoperativo}
               onChange={handleChange}
               className="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300"
             >
@@ -447,18 +440,18 @@ export default function MaintenanceForm() {
             </select>
           </div>
 
-          {(formData.sistemaOperativo === 'linux' || formData.sistemaOperativo === 'otro') && (
+          {(formData.sistemaoperativo === 'linux' || formData.sistemaoperativo === 'otro') && (
             <div className="md:col-span-2">
               <label className="block text-sm font-medium mb-2">
                 Especificar sistema operativo
               </label>
               <input
                 type="text"
-                name="otroSO"
-                value={formData.otroSO}
+                name="otroso"
+                value={formData.otroso}
                 onChange={handleChange}
                 className="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300"
-                placeholder={formData.sistemaOperativo === 'linux' ? 'Ubuntu, Fedora, Debian, etc.' : 'Especifica el sistema operativo'}
+                placeholder={formData.sistemaoperativo === 'linux' ? 'Ubuntu, Fedora, Debian, etc.' : 'Especifica el sistema operativo'}
               />
             </div>
           )}
@@ -478,11 +471,11 @@ export default function MaintenanceForm() {
               ¿Cuál es el problema principal? <span className="text-red-500">*</span>
             </label>
             <select
-              name="problemaPrincipal"
-              value={formData.problemaPrincipal}
+              name="problemaprincipal"
+              value={formData.problemaprincipal}
               onChange={handleChange}
               className={`w-full p-4 bg-white/10 border ${
-                errors.problemaPrincipal ? 'border-red-500' : 'border-white/20'
+                errors.problemaprincipal ? 'border-red-500' : 'border-white/20'
               } rounded-lg text-white focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300`}
             >
               <option value="" className="bg-gray-800">Selecciona el problema</option>
@@ -496,28 +489,28 @@ export default function MaintenanceForm() {
               <option value="instalacion" className="bg-gray-800">Instalación de Office/Windows</option>
               <option value="otro" className="bg-gray-800">Otro</option>
             </select>
-            {errors.problemaPrincipal && (
-              <p className="mt-2 text-sm text-red-400">{errors.problemaPrincipal}</p>
+            {errors.problemaprincipal && (
+              <p className="mt-2 text-sm text-red-400">{errors.problemaprincipal}</p>
             )}
           </div>
 
-          {formData.problemaPrincipal === 'otro' && (
+          {formData.problemaprincipal === 'otro' && (
             <div>
               <label className="block text-sm font-medium mb-2">
                 Especificar problema <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
-                name="otroProblem"
-                value={formData.otroProblem}
+                name="otroproblema"
+                value={formData.otroproblema}
                 onChange={handleChange}
                 className={`w-full p-4 bg-white/10 border ${
-                  errors.otroProblem ? 'border-red-500' : 'border-white/20'
+                  errors.otroproblema ? 'border-red-500' : 'border-white/20'
                 } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300`}
                 placeholder="Describe brevemente el problema"
               />
-              {errors.otroProblem && (
-                <p className="mt-2 text-sm text-red-400">{errors.otroProblem}</p>
+              {errors.otroproblema && (
+                <p className="mt-2 text-sm text-red-400">{errors.otroproblema}</p>
               )}
             </div>
           )}
@@ -527,17 +520,17 @@ export default function MaintenanceForm() {
               Descripción detallada del problema <span className="text-red-500">*</span>
             </label>
             <textarea
-              name="descripcionDetallada"
-              value={formData.descripcionDetallada}
+              name="descripciondetallada"
+              value={formData.descripciondetallada}
               onChange={handleChange}
               rows={5}
               className={`w-full p-4 bg-white/10 border ${
-                errors.descripcionDetallada ? 'border-red-500' : 'border-white/20'
+                errors.descripciondetallada ? 'border-red-500' : 'border-white/20'
               } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300 resize-none`}
               placeholder="Por favor, describe el problema con el mayor detalle posible..."
             />
-            {errors.descripcionDetallada && (
-              <p className="mt-2 text-sm text-red-400">{errors.descripcionDetallada}</p>
+            {errors.descripciondetallada && (
+              <p className="mt-2 text-sm text-red-400">{errors.descripciondetallada}</p>
             )}
           </div>
 
@@ -550,9 +543,9 @@ export default function MaintenanceForm() {
                 <label key={value} className="flex items-center gap-3 cursor-pointer group">
                   <input
                     type="radio"
-                    name="cuandoComenzo"
+                    name="cuandocomenzo"
                     value={value}
-                    checked={formData.cuandoComenzo === value}
+                    checked={formData.cuandocomenzo === value}
                     onChange={handleChange}
                     className="w-5 h-5 text-orange-500 focus:ring-orange-500 focus:ring-2"
                   />
@@ -565,8 +558,8 @@ export default function MaintenanceForm() {
                 </label>
               ))}
             </div>
-            {errors.cuandoComenzo && (
-              <p className="mt-2 text-sm text-red-400">{errors.cuandoComenzo}</p>
+            {errors.cuandocomenzo && (
+              <p className="mt-2 text-sm text-red-400">{errors.cuandocomenzo}</p>
             )}
           </div>
 
@@ -575,8 +568,8 @@ export default function MaintenanceForm() {
               ¿Realizaste algún intento de solución?
             </label>
             <textarea
-              name="intentoSolucion"
-              value={formData.intentoSolucion}
+              name="intentosolucion"
+              value={formData.intentosolucion}
               onChange={handleChange}
               rows={3}
               className="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300 resize-none"
@@ -710,8 +703,8 @@ export default function MaintenanceForm() {
               Horario preferido de contacto
             </label>
             <select
-              name="horarioContacto"
-              value={formData.horarioContacto}
+              name="horariocontacto"
+              value={formData.horariocontacto}
               onChange={handleChange}
               className="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300"
             >
@@ -728,8 +721,8 @@ export default function MaintenanceForm() {
               Comentarios adicionales
             </label>
             <textarea
-              name="comentariosAdicionales"
-              value={formData.comentariosAdicionales}
+              name="comentariosadicionales"
+              value={formData.comentariosadicionales}
               onChange={handleChange}
               rows={4}
               className="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300 resize-none"
