@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/contactForm';
 ---
 
 <Layout title="GrayStackDev - Soluciones Tecnológicas">
@@ -295,34 +296,8 @@ import Layout from '../layouts/Layout.astro';
 					</div>
 				</div>
 				<div class="contact-form bg-white/5 p-10 rounded-2xl border border-white/10">
-					<form>
-						<div class="form-group mb-6">
-							<input type="text" placeholder="Nombre completo" required 
-								class="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300">
-						</div>
-						<div class="form-group mb-6">
-							<input type="email" placeholder="Correo electrónico" required 
-								class="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300">
-						</div>
-						<div class="form-group mb-6">
-							<select id="service-select" required 
-								class="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300">
-								<option value="" class="bg-gray-800">Selecciona un servicio</option>
-								<option value="mantenimiento" class="bg-gray-800">Mantenimiento</option>
-								<option value="hosting" class="bg-gray-800">Web Hosting & Desarrollo</option>
-								<option value="almacenamiento" class="bg-gray-800">Almacenamiento en la Nube</option>
-								<option value="moodle" class="bg-gray-800">Plataforma Moodle</option>
-							</select>
-						</div>
-						<div class="form-group mb-6">
-							<textarea placeholder="Describe tu proyecto o necesidad" rows="4" 
-								class="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300 resize-none"></textarea>
-						</div>
-						<button type="submit" class="w-full bg-gradient-to-r from-orange-800 to-orange-500 text-white p-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/40 uppercase tracking-wide">
-							Enviar mensaje
-						</button>
-					</form>
-				</div>
+				<ContactForm client:load />
+			</div>
 			</div>
 		</section>
 	</main>
