@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MaintenanceForm from '../components/MaintenanceForm';
+---
+
+<Layout title="Solicitud de Mantenimiento - GrayStackDev">
+	<Header />
+
+	<main class="min-h-screen pt-32 pb-20 px-4 sm:px-8">
+		<!-- Hero Section -->
+		<div class="max-w-4xl mx-auto text-center mb-12">
+			<div class="w-20 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent mx-auto mb-8 animate-pulse"></div>
+			
+			<h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-500 via-orange-400 to-gray-400 bg-clip-text text-transparent">
+				Solicitud de Mantenimiento
+			</h1>
+			
+			<p class="text-lg sm:text-xl text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto">
+				Completa el siguiente formulario con los detalles de tu equipo y el problema que presenta. 
+				Nuestro equipo técnico te contactará lo antes posible.
+			</p>
+
+			<div class="flex flex-wrap justify-center gap-4 text-sm text-gray-400">
+				<div class="flex items-center gap-2">
+					<i class="fas fa-check-circle text-green-500"></i>
+					<span>Respuesta rápida</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<i class="fas fa-check-circle text-green-500"></i>
+					<span>Técnicos certificados</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<i class="fas fa-check-circle text-green-500"></i>
+					<span>Garantía de servicio</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Formulario -->
+		<div class="max-w-4xl mx-auto bg-white/5 p-6 sm:p-10 rounded-2xl border border-white/10 backdrop-blur-sm">
+			<MaintenanceForm client:load />
+		</div>
+
+		<!-- Información adicional -->
+		<div class="max-w-4xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+			<div class="bg-white/5 p-6 rounded-xl border border-white/10 text-center">
+				<i class="fas fa-clock text-4xl text-orange-500 mb-4"></i>
+				<h3 class="text-lg font-semibold mb-2">Horario de Atención</h3>
+				<p class="text-sm text-gray-400">Lunes a Sábado<br/>8:00 AM - 8:00 PM</p>
+			</div>
+			
+			<div class="bg-white/5 p-6 rounded-xl border border-white/10 text-center">
+				<i class="fas fa-phone text-4xl text-orange-500 mb-4"></i>
+				<h3 class="text-lg font-semibold mb-2">Contacto Directo</h3>
+				<p class="text-sm text-gray-400">+504 3302-3042<br/>graystackdev@gmail.com</p>
+			</div>
+			
+			<div class="bg-white/5 p-6 rounded-xl border border-white/10 text-center">
+				<i class="fas fa-map-marker-alt text-4xl text-orange-500 mb-4"></i>
+				<h3 class="text-lg font-semibold mb-2">Ubicación</h3>
+				<p class="text-sm text-gray-400">Siguatepeque<br/>Comayagua, Honduras</p>
+			</div>
+		</div>
+	</main>
+
+	<Footer />
+</Layout>
+
+<script src="../scripts/main.js"></script>
