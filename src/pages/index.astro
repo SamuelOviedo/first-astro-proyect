@@ -16,19 +16,15 @@ import Layout from '../layouts/Layout.astro';
 				</div>
 			</div>
 			<div class="hidden md:flex items-center gap-8">
-				<a href="#mantenimiento" class="text-white font-medium hover:text-orange-500 transition-colors duration-300 relative group">
-					Mantenimiento
+				<a href="#inicio" class="text-white font-medium hover:text-orange-500 transition-colors duration-300 relative group">
+					Inicio
 					<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-800 to-orange-500 transition-all duration-300 group-hover:w-full"></span>
 				</a>
-				<a href="#nube" class="text-white font-medium hover:text-orange-500 transition-colors duration-300 relative group">
-					Nube
+				<a href="#servicios" class="text-white font-medium hover:text-orange-500 transition-colors duration-300 relative group">
+					Servicios
 					<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-800 to-orange-500 transition-all duration-300 group-hover:w-full"></span>
 				</a>
-				<a href="#moodle" class="text-white font-medium hover:text-orange-500 transition-colors duration-300 relative group">
-					Moodle
-					<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-800 to-orange-500 transition-all duration-300 group-hover:w-full"></span>
-				</a>
-				<a href="#contacto" class="bg-gradient-to-r from-orange-800 to-orange-500 px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/40">
+			<a href="#contacto" class="bg-gradient-to-r from-orange-800 to-orange-500 px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/40">
 					Contacto
 				</a>
 			</div>
@@ -42,7 +38,7 @@ import Layout from '../layouts/Layout.astro';
 
 	<main class="main-container">
 		<!-- Hero Section - Minimalist Futuristic -->
-		<section class="min-h-screen flex items-center justify-center px-8 relative overflow-hidden">
+		<section id="inicio" class="min-h-screen flex items-center justify-center px-8 relative overflow-hidden">
 			<!-- Minimalist Geometric Background -->
 			<div class="absolute inset-0 -z-10 bg-gradient-to-br from-gray-950 via-gray-900 to-black">
 				<!-- Animated gradient orbs -->
@@ -104,7 +100,7 @@ import Layout from '../layouts/Layout.astro';
 		</section>
 
 		<!-- Services Grid -->
-		<section class="grid grid-cols-1 lg:grid-cols-3 min-h-screen mt-8">
+		<section id="servicios" class="grid grid-cols-1 lg:grid-cols-3 min-h-screen mt-8">
 			<!-- Mantenimiento Section -->
 			<div class="service-panel relative flex items-center justify-center p-12 bg-gradient-to-br from-slate-800 to-slate-900 cursor-pointer transition-all duration-500 hover:scale-105 group" id="mantenimiento">
 				<div class="panel-background absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110">
@@ -114,7 +110,7 @@ import Layout from '../layouts/Layout.astro';
 					<div class="panel-icon text-6xl mb-6 text-orange-500 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(255,94,0,0.4)]">
 						<i class="fas fa-tools"></i>
 					</div>
-					<h2 class="text-4xl font-bold mb-4 tracking-wider uppercase">MANTENIMIENTO</h2>
+					<h2 class="text-4xl font-bold mb-4 tracking-wider uppercase">Inicio</h2>
 					<p class="text-lg text-gray-300 mb-8 leading-relaxed">
 						Soporte técnico especializado para mantener tu equipo funcionando al máximo rendimiento
 					</p>
@@ -155,7 +151,7 @@ import Layout from '../layouts/Layout.astro';
 					<div class="panel-icon text-6xl mb-6 text-orange-500 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(255,94,0,0.4)]">
 						<i class="fas fa-cloud"></i>
 					</div>
-					<h2 class="text-4xl font-bold mb-4 tracking-wider uppercase">NUBE</h2>
+					<h2 class="text-4xl font-bold mb-4 tracking-wider uppercase">Servicios</h2>
 					<p class="text-lg text-gray-300 mb-6 leading-relaxed">
 						Soluciones completas en la nube para tu negocio y documentos personales
 					</p>
@@ -297,7 +293,7 @@ import Layout from '../layouts/Layout.astro';
 							<select id="service-select" required 
 								class="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300">
 								<option value="" class="bg-gray-800">Selecciona un servicio</option>
-								<option value="mantenimiento" class="bg-gray-800">Mantenimiento</option>
+								<option value="mantenimiento" class="bg-gray-800">Inicio</option>
 								<option value="hosting" class="bg-gray-800">Web Hosting & Desarrollo</option>
 								<option value="almacenamiento" class="bg-gray-800">Almacenamiento en la Nube</option>
 								<option value="moodle" class="bg-gray-800">Plataforma Moodle</option>
@@ -328,9 +324,8 @@ import Layout from '../layouts/Layout.astro';
 			<div class="footer-links grid grid-cols-1 md:grid-cols-2 gap-8 lg:col-span-2">
 				<div class="link-group">
 					<h4 class="text-white font-semibold mb-4">Servicios</h4>
-					<a href="#mantenimiento" class="block text-gray-400 hover:text-orange-800 transition-colors duration-300 mb-2">Mantenimiento</a>
-					<a href="#nube" class="block text-gray-400 hover:text-orange-800 transition-colors duration-300 mb-2">Desarrollo Web</a>
-					<a href="#moodle" class="block text-gray-400 hover:text-orange-800 transition-colors duration-300 mb-2">Plataformas Moodle</a>
+					<a href="#inicio" class="block text-gray-400 hover:text-orange-800 transition-colors duration-300 mb-2">Inicio</a>
+					<a href="#servicios" class="block text-gray-400 hover:text-orange-800 transition-colors duration-300 mb-2">Desarrollo Web</a>
 				</div>
 				<div class="link-group">
 					<h4 class="text-white font-semibold mb-4">Contacto</h4>
