@@ -43,7 +43,25 @@ export default function CloudForm() {
       if (name.endsWith('[]')) {
         const field = name.replace('[]', '');
         const arr = data[field] || [];
-        setData((p: any) => ({ ...p, [field]: checked ? [...arr, val] : arr.filter((i: any) => i !== val) }));
+        if (field === 'serviciosNecesitados') {
+          let next: string[] = arr;
+          if (checked) {
+            if (val === 'ambos') {
+              // Seleccionar "ambos" desmarca las otras opciones
+              next = ['ambos'];
+            } else {
+              // Seleccionar una de las primeras dos desmarca "ambos"
+              next = [...arr.filter((i: any) => i !== 'ambos')];
+              if (!next.includes(val)) next.push(val);
+            }
+          } else {
+            // Desmarcar simplemente la quita del arreglo
+            next = arr.filter((i: any) => i !== val);
+          }
+          setData((p: any) => ({ ...p, [field]: next }));
+        } else {
+          setData((p: any) => ({ ...p, [field]: checked ? [...arr, val] : arr.filter((i: any) => i !== val) }));
+        }
       } else {
         setData((p: any) => ({ ...p, [name]: checked ? 'si' : 'no' }));
       }
