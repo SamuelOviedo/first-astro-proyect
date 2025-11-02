@@ -41,8 +41,7 @@ export default function Section1({ data, errors, onChange }: any) {
         <div className="space-y-3">
           {[
             {v: 'web_hosting', l: 'Web Hosting & Desarrollo'},
-            {v: 'almacenamiento', l: 'Almacenamiento en la Nube'},
-            {v: 'ambos', l: 'Ambos servicios'}
+            {v: 'almacenamiento', l: 'Almacenamiento en la Nube'}
           ].map(o => (
             <label key={o.v} className="flex items-center gap-3 cursor-pointer group">
               <input type="checkbox" name="serviciosNecesitados[]" value={o.v} checked={data.serviciosNecesitados?.includes(o.v)} onChange={onChange} className="w-5 h-5 text-orange-500 rounded" />

@@ -31,7 +31,14 @@ export default function CloudForm() {
     const saved = localStorage.getItem('cloudForm');
     const savedStep = localStorage.getItem('cloudStep');
     if (saved) {
-      try { setData(JSON.parse(saved)); if (savedStep) setStep(parseInt(savedStep)); } catch (e) {}
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed?.serviciosNecesitados)) {
+          parsed.serviciosNecesitados = parsed.serviciosNecesitados.filter((v: string) => v !== 'ambos');
+        }
+        setData(parsed);
+        if (savedStep) setStep(parseInt(savedStep));
+      } catch (e) {}
     }
   }, []);
 
@@ -43,25 +50,11 @@ export default function CloudForm() {
       if (name.endsWith('[]')) {
         const field = name.replace('[]', '');
         const arr = data[field] || [];
-        if (field === 'serviciosNecesitados') {
-          let next: string[] = arr;
-          if (checked) {
-            if (val === 'ambos') {
-              // Seleccionar "ambos" desmarca las otras opciones
-              next = ['ambos'];
-            } else {
-              // Seleccionar una de las primeras dos desmarca "ambos"
-              next = [...arr.filter((i: any) => i !== 'ambos')];
-              if (!next.includes(val)) next.push(val);
-            }
-          } else {
-            // Desmarcar simplemente la quita del arreglo
-            next = arr.filter((i: any) => i !== val);
-          }
-          setData((p: any) => ({ ...p, [field]: next }));
-        } else {
-          setData((p: any) => ({ ...p, [field]: checked ? [...arr, val] : arr.filter((i: any) => i !== val) }));
-        }
+        // serviciosNecesitados ahora solo tiene 'web_hosting' y 'almacenamiento'
+        setData((p: any) => ({
+          ...p,
+          [field]: checked ? [...arr, val] : arr.filter((i: any) => i !== val)
+        }));
       } else {
         setData((p: any) => ({ ...p, [name]: checked ? 'si' : 'no' }));
       }
@@ -80,14 +73,14 @@ export default function CloudForm() {
       if (!data.tipoCliente) e.tipoCliente = 'Requerido';
       if (data.serviciosNecesitados.length === 0) e.serviciosNecesitados = 'Selecciona al menos uno';
     }
-    if (s === 2 && (data.serviciosNecesitados.includes('web_hosting') || data.serviciosNecesitados.includes('ambos'))) {
+    if (s === 2 && data.serviciosNecesitados.includes('web_hosting')) {
       if (!data.tipoProyectoWeb) e.tipoProyectoWeb = 'Requerido';
       if (!data.numeroPaginas) e.numeroPaginas = 'Requerido';
       if (!data.proveedorContenido) e.proveedorContenido = 'Requerido';
       if (!data.necesitaSSL) e.necesitaSSL = 'Requerido';
       if (!data.traficoEstimado) e.traficoEstimado = 'Requerido';
     }
-    if (s === 3 && (data.serviciosNecesitados.includes('almacenamiento') || data.serviciosNecesitados.includes('ambos'))) {
+    if (s === 3 && data.serviciosNecesitados.includes('almacenamiento')) {
       if (data.usoAlmacenamiento.length === 0) e.usoAlmacenamiento = 'Selecciona al menos uno';
       if (!data.espacioAlmacenamiento) e.espacioAlmacenamiento = 'Requerido';
       if (data.tiposArchivos.length === 0) e.tiposArchivos = 'Selecciona al menos uno';
@@ -110,11 +103,11 @@ export default function CloudForm() {
   const next = () => {
     if (validate(step)) {
       if (step === 1) {
-        if (data.serviciosNecesitados.includes('web_hosting') || data.serviciosNecesitados.includes('ambos')) setStep(2);
+        if (data.serviciosNecesitados.includes('web_hosting')) setStep(2);
         else if (data.serviciosNecesitados.includes('almacenamiento')) setStep(3);
         else setStep(4);
       } else if (step === 2) {
-        if (data.serviciosNecesitados.includes('almacenamiento') || data.serviciosNecesitados.includes('ambos')) setStep(3);
+        if (data.serviciosNecesitados.includes('almacenamiento')) setStep(3);
         else setStep(4);
       } else setStep(Math.min(step + 1, 5));
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -123,11 +116,11 @@ export default function CloudForm() {
 
   const prev = () => {
     if (step === 4) {
-      if (data.serviciosNecesitados.includes('almacenamiento') || data.serviciosNecesitados.includes('ambos')) setStep(3);
+      if (data.serviciosNecesitados.includes('almacenamiento')) setStep(3);
       else if (data.serviciosNecesitados.includes('web_hosting')) setStep(2);
       else setStep(1);
     } else if (step === 3) {
-      if (data.serviciosNecesitados.includes('web_hosting') || data.serviciosNecesitados.includes('ambos')) setStep(2);
+      if (data.serviciosNecesitados.includes('web_hosting')) setStep(2);
       else setStep(1);
     } else setStep(Math.max(step - 1, 1));
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -180,8 +173,8 @@ export default function CloudForm() {
 
       <div className="space-y-6">
         {step === 1 && <Section1 data={data} errors={errors} onChange={handleChange} />}
-        {step === 2 && (data.serviciosNecesitados.includes('web_hosting') || data.serviciosNecesitados.includes('ambos')) && <Section2 data={data} errors={errors} onChange={handleChange} />}
-        {step === 3 && (data.serviciosNecesitados.includes('almacenamiento') || data.serviciosNecesitados.includes('ambos')) && <Section3 data={data} errors={errors} onChange={handleChange} />}
+        {step === 2 && data.serviciosNecesitados.includes('web_hosting') && <Section2 data={data} errors={errors} onChange={handleChange} />}
+        {step === 3 && data.serviciosNecesitados.includes('almacenamiento') && <Section3 data={data} errors={errors} onChange={handleChange} />}
         {step === 4 && <Section4 data={data} errors={errors} onChange={handleChange} />}
         {step === 5 && <Section5 data={data} errors={errors} onChange={handleChange} />}
       </div>
