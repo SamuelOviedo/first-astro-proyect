@@ -1,5 +1,11 @@
 ---
 import '../styles/global.css';
+
+interface Props {
+	title?: string;
+}
+
+const { title = 'GrayStackDev - Soluciones Tecnológicas' } = Astro.props;
 ---
 
 <!doctype html>
@@ -9,7 +15,7 @@ import '../styles/global.css';
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>GrayStackDev - Soluciones Tecnológicas</title>
+		<title>{title}</title>
 		<meta name="description" content="Soluciones integrales de mantenimiento, desarrollo web y plataformas educativas Moodle" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

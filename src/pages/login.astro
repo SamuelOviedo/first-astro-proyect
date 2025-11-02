@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Iniciar Sesión - DevBooks">
+<main class="bg-gradient-to-br from-gray-900 via-gray-800 to-black min-h-screen text-white pt-20">
+  <div class="container mx-auto px-4 py-12">
+    <div class="max-w-md mx-auto">
+      <!-- Logo/Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-orange-500 mb-2">
+          <i class="fas fa-tools"></i> GrayStackDev
+        </h1>
+        <p class="text-gray-400">Inicia sesión para solicitar asistencia técnica</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex gap-2 mb-6">
+        <button id="loginTab" class="flex-1 py-3 px-4 rounded-lg bg-orange-500 text-white font-semibold transition-all">
+          Iniciar Sesión
+        </button>
+        <button id="registerTab" class="flex-1 py-3 px-4 rounded-lg bg-white/10 text-gray-300 font-semibold transition-all hover:bg-white/20">
+          Registrarse
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="loginForm" class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+        <form id="loginFormElement" class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium mb-2">
+              <i class="fas fa-envelope mr-2"></i>Correo electrónico
+            </label>
+            <input
+              type="email"
+              id="loginEmail"
+              required
+              class="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300"
+              placeholder="tu@email.com"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">
+              <i class="fas fa-lock mr-2"></i>Contraseña
+            </label>
+            <input
+              type="password"
+              id="loginPassword"
+              required
+              class="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300"
+              placeholder="••••••••"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-gradient-to-r from-orange-800 to-orange-500 text-white px-6 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/40"
+          >
+            <i class="fas fa-sign-in-alt mr-2"></i>Iniciar Sesión
+          </button>
+        </form>
+
+        <div id="loginMessage" class="mt-4 p-3 rounded-lg hidden"></div>
+      </div>
+
+      <!-- Register Form -->
+      <div id="registerForm" class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hidden">
+        <form id="registerFormElement" class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium mb-2">
+              <i class="fas fa-user mr-2"></i>Nombre completo
+            </label>
+            <input
+              type="text"
+              id="registerName"
+              required
+              class="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300"
+              placeholder="Juan Pérez"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">
+              <i class="fas fa-envelope mr-2"></i>Correo electrónico
+            </label>
+            <input
+              type="email"
+              id="registerEmail"
+              required
+              class="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300"
+              placeholder="tu@email.com"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">
+              <i class="fas fa-lock mr-2"></i>Contraseña
+            </label>
+            <input
+              type="password"
+              id="registerPassword"
+              required
+              minlength="6"
+              class="w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300"
+              placeholder="Mínimo 6 caracteres"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-gradient-to-r from-orange-800 to-orange-500 text-white px-6 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/40"
+          >
+            <i class="fas fa-user-plus mr-2"></i>Crear Cuenta
+          </button>
+        </form>
+
+        <div id="registerMessage" class="mt-4 p-3 rounded-lg hidden"></div>
+      </div>
+
+      <!-- Back to home -->
+      <div class="text-center mt-6">
+        <a href="/" class="text-gray-400 hover:text-orange-500 transition-colors">
+          <i class="fas fa-arrow-left mr-2"></i>Volver al inicio
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    import { supabase } from '../lib/supabase';
+
+    // Tab switching
+    const loginTab = document.getElementById('loginTab');
+    const registerTab = document.getElementById('registerTab');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+
+    // Función para mostrar el tab de login
+    const showLoginTab = () => {
+      loginTab?.classList.add('bg-orange-500', 'text-white');
+      loginTab?.classList.remove('bg-white/10', 'text-gray-300');
+      registerTab?.classList.remove('bg-orange-500', 'text-white');
+      registerTab?.classList.add('bg-white/10', 'text-gray-300');
+      loginForm?.classList.remove('hidden');
+      registerForm?.classList.add('hidden');
+    };
+
+    // Función para mostrar el tab de registro
+    const showRegisterTab = () => {
+      registerTab?.classList.add('bg-orange-500', 'text-white');
+      registerTab?.classList.remove('bg-white/10', 'text-gray-300');
+      loginTab?.classList.remove('bg-orange-500', 'text-white');
+      loginTab?.classList.add('bg-white/10', 'text-gray-300');
+      registerForm?.classList.remove('hidden');
+      loginForm?.classList.add('hidden');
+    };
+
+    // Detectar si viene desde el botón de registrarse (parámetro en URL)
+    const urlParams = new URLSearchParams(window.location.search);
+    const showRegister = urlParams.get('register') === 'true';
+    
+    if (showRegister) {
+      showRegisterTab();
+    }
+
+    loginTab?.addEventListener('click', showLoginTab);
+    registerTab?.addEventListener('click', showRegisterTab);
+
+    // Login
+    const loginFormElement = document.getElementById('loginFormElement') as HTMLFormElement;
+    const loginMessage = document.getElementById('loginMessage');
+
+    loginFormElement?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = (document.getElementById('loginEmail') as HTMLInputElement).value;
+      const password = (document.getElementById('loginPassword') as HTMLInputElement).value;
+
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) throw error;
+
+        if (loginMessage) {
+          loginMessage.textContent = '✅ Inicio de sesión exitoso. Redirigiendo...';
+          loginMessage.className = 'mt-4 p-3 rounded-lg bg-green-500/20 border border-green-500 text-green-400';
+          loginMessage.classList.remove('hidden');
+        }
+
+        setTimeout(() => {
+          window.location.href = '/mantenimiento';
+        }, 1000);
+
+      } catch (error: any) {
+        if (loginMessage) {
+          loginMessage.textContent = `❌ Error: ${error.message}`;
+          loginMessage.className = 'mt-4 p-3 rounded-lg bg-red-500/20 border border-red-500 text-red-400';
+          loginMessage.classList.remove('hidden');
+        }
+      }
+    });
+
+    // Register
+    const registerFormElement = document.getElementById('registerFormElement') as HTMLFormElement;
+    const registerMessage = document.getElementById('registerMessage');
+
+    registerFormElement?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = (document.getElementById('registerName') as HTMLInputElement).value;
+      const email = (document.getElementById('registerEmail') as HTMLInputElement).value;
+      const password = (document.getElementById('registerPassword') as HTMLInputElement).value;
+
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              full_name: name,
+            }
+          }
+        });
+
+        if (error) throw error;
+
+        if (registerMessage) {
+          registerMessage.textContent = '✅ Cuenta creada exitosamente. Revisa tu correo para confirmar tu cuenta.';
+          registerMessage.className = 'mt-4 p-3 rounded-lg bg-green-500/20 border border-green-500 text-green-400';
+          registerMessage.classList.remove('hidden');
+        }
+
+        registerFormElement.reset();
+
+      } catch (error: any) {
+        if (registerMessage) {
+          registerMessage.textContent = `❌ Error: ${error.message}`;
+          registerMessage.className = 'mt-4 p-3 rounded-lg bg-red-500/20 border border-red-500 text-red-400';
+          registerMessage.classList.remove('hidden');
+        }
+      }
+    });
+  </script>
+</main>
+</Layout>

@@ -6,6 +6,7 @@ interface FormData {
   // Datos del cliente
   nombre: string;
   email: string;
+  codigopais: string;
   telefono: string;
   ubicacion: string;
   
@@ -39,6 +40,7 @@ export default function MaintenanceForm() {
   const [formData, setFormData] = useState<FormData>({
     nombre: '',
     email: '',
+    codigopais: '+504',
     telefono: '',
     ubicacion: '',
     tipodispositivo: '',
@@ -63,6 +65,26 @@ export default function MaintenanceForm() {
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
   const [imagenes, setImagenes] = useState<File[]>([]);
   const [errorImagen, setErrorImagen] = useState<File | null>(null);
+
+  // Códigos de país más comunes
+  const codigosPais = [
+    { codigo: '+1', pais: 'Estados Unidos/Canadá', bandera: '🇺🇸' },
+    { codigo: '+52', pais: 'México', bandera: '🇲🇽' },
+    { codigo: '+502', pais: 'Guatemala', bandera: '🇬🇹' },
+    { codigo: '+503', pais: 'El Salvador', bandera: '🇸🇻' },
+    { codigo: '+504', pais: 'Honduras', bandera: '🇭🇳' },
+    { codigo: '+505', pais: 'Nicaragua', bandera: '🇳🇮' },
+    { codigo: '+506', pais: 'Costa Rica', bandera: '🇨🇷' },
+    { codigo: '+507', pais: 'Panamá', bandera: '🇵🇦' },
+    { codigo: '+51', pais: 'Perú', bandera: '🇵🇪' },
+    { codigo: '+56', pais: 'Chile', bandera: '🇨🇱' },
+    { codigo: '+57', pais: 'Colombia', bandera: '🇨🇴' },
+    { codigo: '+58', pais: 'Venezuela', bandera: '🇻🇪' },
+    { codigo: '+591', pais: 'Bolivia', bandera: '🇧🇴' },
+    { codigo: '+593', pais: 'Ecuador', bandera: '🇪🇨' },
+    { codigo: '+34', pais: 'España', bandera: '🇪🇸' },
+    { codigo: '+54', pais: 'Argentina', bandera: '🇦🇷' },
+  ];
 
   const validateEmail = (email: string): boolean => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -190,26 +212,48 @@ export default function MaintenanceForm() {
     setSubmitStatus(null);
 
     try {
+      console.log('📤 Enviando datos al servidor...');
+      console.log('Datos del formulario:', formData);
+      
+      // Obtener el usuario autenticado
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        throw new Error('No hay sesión activa. Por favor inicia sesión.');
+      }
+      
+      const dataToInsert = {
+        ...formData,
+        user_id: session.user.id,
+        user_email: session.user.email,
+        tieneimagenes: imagenes.length > 0,
+        tieneerrorimagenes: errorImagen !== null
+      };
+      
+      console.log('Datos a insertar:', dataToInsert);
+
       const { data, error } = await supabase
         .from('mantenimiento')
-        .insert([
-          {
-            ...formData,
-            tieneimagenes: imagenes.length > 0,
-            tieneerrorimagenes: errorImagen !== null
-          }
-        ]);
+        .insert([dataToInsert])
+        .select();
 
       if (error) {
-        console.error('Error de Supabase:', error);
+        console.error('❌ Error de Supabase detectado:');
+        console.error('Código de error:', error.code);
+        console.error('Mensaje:', error.message);
+        console.error('Detalles:', error.details);
+        console.error('Hint:', error.hint);
+        console.error('Objeto completo del error:', JSON.stringify(error, null, 2));
         throw error;
       }
 
+      console.log('✅ Datos insertados exitosamente:', data);
       setSubmitStatus('success');
       
       setFormData({
         nombre: '',
         email: '',
+        codigopais: '+504',
         telefono: '',
         ubicacion: '',
         tipodispositivo: '',
@@ -234,8 +278,24 @@ export default function MaintenanceForm() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(() => setSubmitStatus(null), 5000);
 
-    } catch (error) {
-      console.error('Error:', error);
+    } catch (error: any) {
+      console.error('❌ Error capturado en catch:');
+      console.error('Tipo de error:', typeof error);
+      console.error('Error completo:', error);
+      
+      if (error.code) {
+        console.error('Código de error Supabase:', error.code);
+      }
+      if (error.message) {
+        console.error('Mensaje de error:', error.message);
+      }
+      if (error.details) {
+        console.error('Detalles del error:', error.details);
+      }
+      if (error.hint) {
+        console.error('Sugerencia:', error.hint);
+      }
+      
       setSubmitStatus('error');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
@@ -243,14 +303,53 @@ export default function MaintenanceForm() {
     }
   };
 
+  // Si el envío fue exitoso, mostrar mensaje de éxito en lugar del formulario
+  if (submitStatus === 'success') {
+    return (
+      <div className="text-center py-12">
+        <div className="mb-8">
+          <div className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
+            <i className="fas fa-check-circle text-6xl text-green-500"></i>
+          </div>
+          <h2 className="text-3xl font-bold text-green-500 mb-4">
+            ¡Solicitud Enviada Exitosamente!
+          </h2>
+          <p className="text-xl text-gray-300 mb-6">
+            Tu solicitud de mantenimiento ha sido recibida correctamente.
+          </p>
+          <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 max-w-md mx-auto border border-white/10">
+            <p className="text-gray-400 mb-4">
+              <i className="fas fa-info-circle text-orange-500 mr-2"></i>
+              Nos contactaremos contigo lo más pronto posible para coordinar el servicio.
+            </p>
+            <p className="text-sm text-gray-500">
+              Recibirás una confirmación en tu correo electrónico.
+            </p>
+          </div>
+        </div>
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            onClick={() => setSubmitStatus(null)}
+            className="bg-gradient-to-r from-orange-800 to-orange-500 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/40"
+          >
+            <i className="fas fa-plus mr-2"></i>
+            Enviar otra solicitud
+          </button>
+          <a
+            href="/"
+            className="bg-white/10 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-white/20 border border-white/20"
+          >
+            <i className="fas fa-home mr-2"></i>
+            Volver al inicio
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      {submitStatus === 'success' && (
-        <div className="p-4 bg-green-500/20 border border-green-500 rounded-lg text-green-400 text-center">
-          ¡Solicitud enviada exitosamente! Te contactaremos pronto.
-        </div>
-      )}
-
       {submitStatus === 'error' && (
         <div className="p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-center">
           Hubo un error al enviar la solicitud. Por favor intenta de nuevo.
@@ -307,16 +406,30 @@ export default function MaintenanceForm() {
             <label className="block text-sm font-medium mb-2">
               Teléfono de contacto <span className="text-red-500">*</span>
             </label>
-            <input
-              type="tel"
-              name="telefono"
-              value={formData.telefono}
-              onChange={handleChange}
-              className={`w-full p-4 bg-white/10 border ${
-                errors.telefono ? 'border-red-500' : 'border-white/20'
-              } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300`}
-              placeholder="+504 3302-3042"
-            />
+            <div className="flex gap-2">
+              <select
+                name="codigopais"
+                value={formData.codigopais}
+                onChange={handleChange}
+                className="w-32 p-4 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300"
+              >
+                {codigosPais.map((pais) => (
+                  <option key={pais.codigo} value={pais.codigo} className="bg-gray-800">
+                    {pais.bandera} {pais.codigo}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="tel"
+                name="telefono"
+                value={formData.telefono}
+                onChange={handleChange}
+                className={`flex-1 p-4 bg-white/10 border ${
+                  errors.telefono ? 'border-red-500' : 'border-white/20'
+                } rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:shadow-[0_0_10px_rgba(255,94,0,0.4)] transition-all duration-300`}
+                placeholder=""
+              />
+            </div>
             {errors.telefono && (
               <p className="mt-2 text-sm text-red-400">{errors.telefono}</p>
             )}
