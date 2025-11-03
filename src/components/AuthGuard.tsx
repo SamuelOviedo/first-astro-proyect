@@ -20,8 +20,9 @@ export default function AuthGuard({ children }: AuthGuardProps) {
         setUser(session.user);
       } else {
         setIsAuthenticated(false);
-        // Redirigir a login si no está autenticado
-        window.location.href = '/login';
+        // Redirigir a login con la página actual como redirect
+        const currentPath = window.location.pathname;
+        window.location.href = `/login?redirect=${encodeURIComponent(currentPath)}`;
       }
     };
 
@@ -34,7 +35,8 @@ export default function AuthGuard({ children }: AuthGuardProps) {
         setUser(session.user);
       } else {
         setIsAuthenticated(false);
-        window.location.href = '/login';
+        const currentPath = window.location.pathname;
+        window.location.href = `/login?redirect=${encodeURIComponent(currentPath)}`;
       }
     });
 
